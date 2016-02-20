@@ -50,7 +50,7 @@ public class MatrixMultiply {
         int len = p.length - 1;
 
         for (int k = 1; k < len; k++) {
-            for (int i = len - k - 1; i >= 0; i--) {
+            for (int i = 0; i <= len - k - 1; i++) {
                 int j = i + k;
                 b[i][j] = i;
                 weights[i][j] = weights[i][i] + weights[i + 1][j] + p[i] * p[i + 1] * p[j + 1];
