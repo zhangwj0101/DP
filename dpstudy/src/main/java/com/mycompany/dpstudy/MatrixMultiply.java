@@ -17,6 +17,7 @@ public class MatrixMultiply {
         int[][] b = new int[p.length - 1][p.length - 1];
         int[][] weights = new int[p.length - 1][p.length - 1];
         System.out.println(getMin(p, weights, b));
+        System.out.println(getMatrix(p, 0, 5));
         for (int i = 0; i < b.length; i++) {
             for (int j = 0; j < b.length; j++) {
                 System.out.printf("%-4d", b[i][j]);
@@ -63,5 +64,23 @@ public class MatrixMultiply {
             }
         }
         return weights[0][len - 1];
+    }
+
+    /**
+     * 递归的实现
+     *
+     */
+    public static int getMatrix(int[] p, int i, int j) {
+        if (i == j) {
+            return 0;
+        }
+        int u = getMatrix(p, i, i) + getMatrix(p, i + 1, j) + p[i] * p[i + 1] * p[j + 1];
+        for (int k = i + 1; k < j; k++) {
+            int temp = getMatrix(p, i, k) + getMatrix(p, k + 1, j) + p[i] * p[k + 1] * p[j + 1];
+            if (temp < u) {
+                u = temp;
+            }
+        }
+        return u;
     }
 }
