@@ -10,7 +10,7 @@ package com.mycompany.dpstudy;
  *
  * @author zhangwj
  */
-public class Matrixmultiply {
+public class MatrixMultiply {
 
     public static void main(String[] args) {
         int[] p = {30, 35, 15, 5, 10, 20, 25};
