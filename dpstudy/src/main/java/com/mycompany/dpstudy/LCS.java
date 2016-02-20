@@ -14,9 +14,19 @@ public class LCS {
 
     public static void main(String[] args) {
         String s1 = "ABCBDABB";
-        String s2 = "BDCABAB";
+        String s2 = "BDCABA";
+        int[][] weights = new int[s1.length()][s2.length()];
+        int[][] values = new int[s1.length()][s2.length()];
 //        System.out.println(LCS_recursion(s1.toCharArray(), s2.toCharArray(), 0, 0));
-        System.out.println(LCS_DP(s1.toCharArray(), s2.toCharArray()));
+        System.out.println(LCS_DP(s1.toCharArray(), s2.toCharArray(), weights, values));
+
+        for (int i = 0; i < s1.length(); i++) {
+            for (int j = 0; j < s2.length(); j++) {
+                System.out.printf("%4d", weights[i][j]);
+            }
+            System.out.println("");
+        }
+
     }
 
     /**
@@ -44,8 +54,7 @@ public class LCS {
      * 动态规划方法实现
      *
      */
-    public static int LCS_DP(char[] s1, char[] s2) {
-        int[][] weights = new int[s1.length][s2.length];
+    public static int LCS_DP(char[] s1, char[] s2, int[][] weights, int[][] values) {
 
         weights[0][0] = s1[0] == s2[0] ? 1 : 0;
         //init
@@ -60,8 +69,10 @@ public class LCS {
             for (int j = 1; j < s2.length; j++) {
                 if (s1[i] == s2[j]) {
                     weights[i][j] = weights[i - 1][j - 1] + 1;
+                } else if (weights[i][j - 1] > weights[i - 1][j]) {
+                    weights[i][j] = weights[i][j - 1];
                 } else {
-                    weights[i][j] = Math.max(weights[i][j - 1], weights[i - 1][j]);
+                    weights[i][j] = weights[i - 1][j];
                 }
             }
         }
