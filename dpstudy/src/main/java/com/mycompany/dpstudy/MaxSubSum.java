@@ -10,8 +10,28 @@ public class MaxSubSum {
         int[] nums = {-2, 11, -4, 13, -5, -2};
         MaxSubSum test = new MaxSubSum();
 
-        System.out.println(test.subSum0(nums));
+        System.out.println(test.subSum3(nums));
     }
+
+
+    /**
+     * 最常规的办法解决
+     *
+     * @param nums
+     * @return
+     */
+    public int subSum0(int[] nums) {
+        int sum = 0;
+        for (int i = 0; i < nums.length; i++) {
+            int subsum = 0;
+            for (int j = i; j < nums.length; j++) {
+                subsum += nums[j];
+                sum = sum > subsum ? sum : subsum;
+            }
+        }
+        return sum;
+    }
+
 
     public int get(int[] nums, int left, int right) {
 
@@ -39,26 +59,6 @@ public class MaxSubSum {
         return sum;
     }
 
-
-    /**
-     * 最常规的办法解决
-     *
-     * @param nums
-     * @return
-     */
-    public int subSum0(int[] nums) {
-        int sum = 0;
-        for (int i = 0; i < nums.length; i++) {
-            int subsum = 0;
-            for (int j = i; j < nums.length; j++) {
-                subsum += nums[j];
-                sum = sum > subsum ? sum : subsum;
-            }
-        }
-        return sum;
-    }
-
-
     /**
      * 分治的思想解决
      *
@@ -84,6 +84,22 @@ public class MaxSubSum {
             } else {
                 subsum = nums[i];
             }
+            sum = sum > subsum ? sum : subsum;
+        }
+        return sum;
+    }
+
+    /**
+     * 根据递推公式获得
+     *
+     * @param nums
+     * @return
+     */
+    public int subSum3(int[] nums) {
+        int sum = 0;
+        int subsum = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            subsum = Math.max(subsum + nums[i], nums[i]);
             sum = sum > subsum ? sum : subsum;
         }
         return sum;
